@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotationRate = 20.0f;
     [SerializeField] private float speed        = 20.0f;
     [SerializeField] private float reverseSpeed = 15.0f;
+    [SerializeField] private float attachmentMoveSpeed = 15.0f;
+
+    [SerializeField] private Transform movingThing;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float move = 0.0f;
         float turn = 0.0f;
+        float attachMoveSpeed = 0.0f;
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -35,6 +40,19 @@ public class PlayerMovement : MonoBehaviour
         {
             turn += 1.0f;
         }
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            attachMoveSpeed += -1.0f;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            attachMoveSpeed += 1.0f;
+        }
+
+        var newPosYclamped = Math.Clamp(movingThing.localPosition.y + attachMoveSpeed * attachmentMoveSpeed * Time.deltaTime, 0.045f, 1.9f);
+        movingThing.localPosition = new Vector3(0.0f, newPosYclamped, 0.0f);
+
 
         // If we are going backwards, flip the direction
         if (move < 0.0f)

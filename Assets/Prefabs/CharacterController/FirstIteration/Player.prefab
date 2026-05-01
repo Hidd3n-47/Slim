@@ -49,6 +49,8 @@ MonoBehaviour:
   rotationRate: 100
   speed: 20
   reverseSpeed: 15
+  attachmentMoveSpeed: 15
+  movingThing: {fileID: 9063864004816452454}
 --- !u!1 &4345079386515230687
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +76,7 @@ Transform:
   m_GameObject: {fileID: 4345079386515230687}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0.476}
+  m_LocalPosition: {x: 0, y: 0.05, z: 2.476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -109,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 9124078345029510866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.045, z: 2}
+  m_LocalPosition: {x: 0, y: 0.045, z: 0}
   m_LocalScale: {x: 1, y: 0.1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
