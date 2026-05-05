@@ -1,8 +1,25 @@
 using System;
+using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public enum Axel
+    {
+        Front,
+        Rear
+    }
+
+    [Serializable]
+    public struct Wheel
+    {
+        public GameObject model;
+        public WheelCollider collider;
+        public Axel axel;
+    }
+
     [SerializeField] private float rotationRate = 20.0f;
     [SerializeField] private float speed        = 20.0f;
     [SerializeField] private float reverseSpeed = 15.0f;
@@ -12,15 +29,65 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform movingThing;
     [SerializeField] private Transform movingThingPivot;
 
+    public float maxAccel = 30.0f;
+    public float brakeAccel = 50.0f;
+
+    public float turnSens = 1.0f;
+    public float maxSteerAngle = 80.0f;
+
+    public float moveInput;
+    public float steerInput;
+    public Vector3 centerOfMass;
+
+    private Rigidbody rb;
+
+    public List<Wheel> wheels = new List<Wheel>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = centerOfMass;
+    }
+    private void LateUpdate()
+    {
+        Move();
+        Steer();
+    }
+
+    void GetInput()
+    {
+        moveInput = Input.GetAxis("Vertical");
+        steerInput = Input.GetAxis("Horizontal");
+    }
+
+    void Move()
+    {
+        foreach (var wheel in wheels)
+        {
+            wheel.collider.motorTorque = moveInput * maxAccel * 2000.0f * Time.deltaTime;
+        }
+    }
+
+    void Steer()
+    {
+        foreach (var wheel in wheels)
+        {
+
+            if (wheel.axel == Axel.Front)
+            {
+                var steerAngle = steerInput * turnSens * maxSteerAngle;
+                wheel.collider.steerAngle = Mathf.Lerp(wheel.collider.steerAngle, steerAngle, 0.6f);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        GetInput();
+
         float move = 0.0f;
         float turn = 0.0f;
         float attachMoveSpeed = 0.0f;
@@ -73,9 +140,9 @@ public class PlayerMovement : MonoBehaviour
 
         Transform t = GetComponent<Transform>();
 
-        t.eulerAngles += new Vector3(0.0f, turn * rotationRate * Time.deltaTime, 0.0f) * (!move.Equals(0.0f) ? 1.0f : 0.0f);
+        //t.eulerAngles += new Vector3(0.0f, turn * rotationRate * Time.deltaTime, 0.0f) * (!move.Equals(0.0f) ? 1.0f : 0.0f);
         var delta = t.forward * move * (move < 0.0f ? reverseSpeed : speed);
 
-        t.position += delta * Time.deltaTime;
+        //t.position += delta * Time.deltaTime;
     }
 }
