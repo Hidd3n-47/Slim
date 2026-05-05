@@ -7,8 +7,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed        = 20.0f;
     [SerializeField] private float reverseSpeed = 15.0f;
     [SerializeField] private float attachmentMoveSpeed = 15.0f;
+    [SerializeField] private float maxLiftSpeed        = 15.0f;
 
     [SerializeField] private Transform movingThing;
+    [SerializeField] private Transform movingThingPivot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,8 +52,17 @@ public class PlayerMovement : MonoBehaviour
             attachMoveSpeed += 1.0f;
         }
 
-        var newPosYclamped = Math.Clamp(movingThing.localPosition.y + attachMoveSpeed * attachmentMoveSpeed * Time.deltaTime, 0.045f, 1.9f);
-        movingThing.localPosition = new Vector3(0.0f, newPosYclamped, 0.0f);
+        var rb = movingThing.GetComponent<Rigidbody>();
+        rb.AddForce(Vector3.up * attachMoveSpeed * attachmentMoveSpeed);
+
+        Vector3 vel = rb.linearVelocity;
+        vel.y = Mathf.Clamp(vel.y, -maxLiftSpeed, maxLiftSpeed);
+        rb.linearVelocity = vel;
+
+        if (attachMoveSpeed == 0.0f || movingThing.localPosition.y <= 0.045f || movingThing.localPosition.y >= 1.9f)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
 
 
         // If we are going backwards, flip the direction

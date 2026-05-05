@@ -51,6 +51,7 @@ MonoBehaviour:
   reverseSpeed: 15
   attachmentMoveSpeed: 15
   movingThing: {fileID: 9063864004816452454}
+  movingThingPivot: {fileID: 7325478394410062710}
 --- !u!1 &4345079386515230687
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,6 +96,8 @@ GameObject:
   - component: {fileID: 4357145275103000096}
   - component: {fileID: 5923748377909568360}
   - component: {fileID: 3308638849755676202}
+  - component: {fileID: 7648981123302261290}
+  - component: {fileID: 2405316116951929903}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -191,6 +194,45 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7648981123302261290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124078345029510866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eab186824ea2748b7f2fdadda7dbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &2405316116951929903
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124078345029510866}
+  serializedVersion: 5
+  m_Mass: 200000
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!1001 &8717909666934739763
 PrefabInstance:
   m_ObjectHideFlags: 0
