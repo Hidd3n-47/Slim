@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform movingThing;
     [SerializeField] private Transform movingThingPivot;
 
+    public Transform cameraT;
+
     public float maxAccel = 30.0f;
     public float brakeAccel = 50.0f;
 
@@ -67,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
         {
             wheel.collider.motorTorque = moveInput * maxAccel * 2000.0f * Time.deltaTime;
         }
+
+        var a = cameraT.position;
+        a.x = transform.position.x;
+        cameraT.position = a;
     }
 
     void Steer()
