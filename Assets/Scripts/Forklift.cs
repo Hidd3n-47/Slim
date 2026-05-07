@@ -22,13 +22,14 @@ public class Forklift : MonoBehaviour
 
     public bool IsDriving = false;
 
-    // What is feel?
-    //public Feel Feel;
+    public Transform Body;
+    public float BodyRotateAmount = 15.0f;
+
+    public bool rotatingLeft = false;
+    public bool rotatingRight = false;
 
     void Awake()
     {
-        // Get feel component?
-
         Engine.Type = ForceType.Translation;
         Engine.Transform = transform;
 
@@ -56,16 +57,45 @@ public class Forklift : MonoBehaviour
     void UpdateWheels()
     {
         // If we are swaying left and already rotated to the left, reset rotation.
-        //if (Wheels.Power <= 0.0f && Feel)
-        //{
-        //    // feel deactivate varient by id on the right?
-        //}
+        if (Wheels.Power < 0.0f && !rotatingLeft)
+        {
+            if (rotatingRight)
+            {
+                Body.Rotate(Vector3.forward, -BodyRotateAmount, Space.Self);
+            }
+            // feel deactivate varient by id on the right?
+            Body.Rotate(Vector3.forward, -BodyRotateAmount, Space.Self);
+            rotatingLeft = true;
+            rotatingRight = false;
+        }
 
         // If we are swaying right and already rotated to the right, reset rotation.
-        //if (Wheels.Power >= 0.0f && Feel)
-        //{
-        //    // feel deactivate varient by id on the left?
-        //}
+        if (Wheels.Power > 0.0f && !rotatingRight)
+        {
+            if (rotatingLeft)
+            {
+                Body.Rotate(Vector3.forward, BodyRotateAmount, Space.Self);
+            }
+            // feel deactivate varient by id on the left?
+            Body.Rotate(Vector3.forward, BodyRotateAmount, Space.Self);
+            rotatingLeft = false;
+            rotatingRight = true;
+        }
+
+        if (Wheels.Power == 0.0f)
+        {
+            if (rotatingLeft)
+            {
+                Body.Rotate(Vector3.forward, BodyRotateAmount, Space.Self);
+            }
+            else if (rotatingRight)
+            {
+                Body.Rotate(Vector3.forward, -BodyRotateAmount, Space.Self);
+            }
+
+            rotatingLeft = false;
+            rotatingRight = false;
+        }
 
         // If wheel power > 0 rotate to the right by 15 degrees swaying the car.
         // If wheel power < 0 rotate to the left by 15 (so -15) degrees
@@ -79,12 +109,14 @@ public class Forklift : MonoBehaviour
         {
             IsDriving = true;
             // Try activate some feel like tilting the car up due to accelerating.
+            Body.Rotate(Vector3.right, BodyRotateAmount, Space.Self);
         }
 
         if (Engine.Power == 0 && IsDriving)
         {
             IsDriving = false;
             // reset the feel to be stopped due to being done driving.
+            Body.Rotate(Vector3.right, -BodyRotateAmount, Space.Self);
         }
 
         Engine.Direction = transform.forward;

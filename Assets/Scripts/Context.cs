@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class Context : MonoBehaviour
 {
@@ -19,8 +20,14 @@ public class Context : MonoBehaviour
     public float WheelsPowerMin = -45.0f;
     public float WheelsResistance = 1.0f;
 
+    [SerializeField] private LayerMask surfaceLayerMask;
+    private SurfaceInfo surfaceInfo = new SurfaceInfo();
+    public Transform groundChecker;
+
     private void Awake()
     {
+        //surfaceLayerMask = LayerMask.NameToLayer("GroundSurface");
+
         // camera parenting to current transform.
         Forklift.Engine.Resistance = EngineResistance;
         Forklift.Wheels.Resistance = WheelsResistance;
@@ -68,9 +75,22 @@ public class Context : MonoBehaviour
             // add feel or particles for the bump.
         };
     }
+    void DetectSurface()
+    {
+        SurfaceInfo info = new SurfaceInfo();
+        if (Physics.Raycast(groundChecker.position, Vector3.down, out RaycastHit hit, 2.0f, surfaceLayerMask))
+        {
+            GroundSurface surf = hit.collider.GetComponent<GroundSurface>();
+            info = surf?.Info;
+        }
+
+        surfaceInfo = info;
+    }
 
     private void Update()
     {
+        DetectSurface();
+
         if (!Input.GetKey(KeyCode.W))
         {
             // if we are currently adding feel remove feel.
@@ -89,6 +109,7 @@ public class Context : MonoBehaviour
 
                 Forklift.Engine.PreventResistanceForOneFrame = true;
                 Forklift.Engine.Power += EngineAcceleration;
+                Forklift.Engine.Power *= surfaceInfo.enginePowerModifier;
                 // ????
                 Forklift.Engine.Power = Forklift.Engine.Power > EnginePowerMax ? EnginePowerMax : Forklift.Engine.Power;
             }
@@ -106,6 +127,7 @@ public class Context : MonoBehaviour
             {
                 Forklift.Engine.PreventResistanceForOneFrame = true;
                 Forklift.Engine.Power -= EngineAcceleration;
+                Forklift.Engine.Power *= surfaceInfo.enginePowerModifier;
                 Forklift.Engine.Power = Forklift.Engine.Power < EnginePowerMin ? EnginePowerMin : Forklift.Engine.Power;
             }
         }
@@ -113,18 +135,18 @@ public class Context : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
-            Forklift.Wheels.Power += WheelsPower;
+            Forklift.Wheels.Power += WheelsPower * surfaceInfo.turningSlipModifier;
             Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
             Forklift.Wheels.Power =
-                Forklift.Wheels.Direction.y > WheelsPowerMax ? WheelsPowerMax : Forklift.Wheels.Power;
+                Forklift.Wheels.Power > WheelsPowerMax ? WheelsPowerMax : Forklift.Wheels.Power;
         }
         else if (Input.GetKey(KeyCode.A))
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
-            Forklift.Wheels.Power -= WheelsPower;
+            Forklift.Wheels.Power -= WheelsPower * surfaceInfo.turningSlipModifier;
             Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
             Forklift.Wheels.Power =
-                Forklift.Wheels.Direction.y < WheelsPowerMin ? WheelsPowerMin : Forklift.Wheels.Power;
+                Forklift.Wheels.Power < WheelsPowerMin ? WheelsPowerMin : Forklift.Wheels.Power;
         }
     }
 }
