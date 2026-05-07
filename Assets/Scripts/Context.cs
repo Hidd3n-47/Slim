@@ -24,6 +24,12 @@ public class Context : MonoBehaviour
     private SurfaceInfo surfaceInfo = new SurfaceInfo();
     public Transform groundChecker;
 
+    public Transform leftWheel;
+    public Transform rightWheel;
+    public float rotationAmount = 45.0f;
+    private bool rotatedLeft = false;
+    private bool rotatedRight = false;
+
     private void Awake()
     {
         //surfaceLayerMask = LayerMask.NameToLayer("GroundSurface");
@@ -132,21 +138,70 @@ public class Context : MonoBehaviour
             }
         }
 
+        bool moving = false;
         if (Input.GetKey(KeyCode.D))
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
             Forklift.Wheels.Power += WheelsPower * surfaceInfo.turningSlipModifier;
-            Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
+            //Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
             Forklift.Wheels.Power =
                 Forklift.Wheels.Power > WheelsPowerMax ? WheelsPowerMax : Forklift.Wheels.Power;
+
+            if (!rotatedLeft)
+            {
+                float rotAmount = -rotationAmount;
+                if (rotatedRight)
+                {
+                    rotAmount -= rotationAmount;
+                }
+                leftWheel.Rotate(Vector3.up, rotAmount);
+                rightWheel.Rotate(Vector3.up, rotAmount);
+
+                rotatedRight = false;
+                rotatedLeft = true;
+            }
+
+            moving = true;
         }
         else if (Input.GetKey(KeyCode.A))
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
             Forklift.Wheels.Power -= WheelsPower * surfaceInfo.turningSlipModifier;
-            Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
+            //Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
             Forklift.Wheels.Power =
                 Forklift.Wheels.Power < WheelsPowerMin ? WheelsPowerMin : Forklift.Wheels.Power;
+
+            if (!rotatedRight)
+            {
+                float rotAmount = rotationAmount;
+                if (rotatedLeft)
+                {
+                    rotAmount = rotationAmount;
+                }
+                leftWheel.Rotate(Vector3.up, rotAmount);
+                rightWheel.Rotate(Vector3.up, rotAmount);
+
+                rotatedLeft = false;
+                rotatedRight = true;
+            }
+
+            moving = true;
+        }
+
+        if (!moving)
+        {
+            if (rotatedLeft)
+            {
+                leftWheel.Rotate(Vector3.up, rotationAmount);
+                rightWheel.Rotate(Vector3.up, rotationAmount);
+                rotatedLeft = false;
+            }
+            else if (rotatedRight)
+            {
+                leftWheel.Rotate(Vector3.up, -rotationAmount);
+                rightWheel.Rotate(Vector3.up, -rotationAmount);
+                rotatedRight = false;
+            }
         }
     }
 }

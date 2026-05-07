@@ -300,6 +300,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundChecker: {fileID: 1578259482}
+  leftWheel: {fileID: 601081574038044342}
+  rightWheel: {fileID: 7000498685668879229}
+  rotationAmount: 45
 --- !u!4 &426009012
 Transform:
   m_ObjectHideFlags: 0

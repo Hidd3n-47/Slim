@@ -99,8 +99,10 @@ public class Forklift : MonoBehaviour
 
         // If wheel power > 0 rotate to the right by 15 degrees swaying the car.
         // If wheel power < 0 rotate to the left by 15 (so -15) degrees
-
+        float reversingModifier = Engine.Power < 0.0f ? -1.0f : 1.0f;
+        Wheels.Power *= reversingModifier;
         Wheels.Refresh();
+        Wheels.Power *= reversingModifier;
     }
 
     void UpdateEngine()
