@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.UI.Image;
 
 public class Context : MonoBehaviour
@@ -97,7 +98,12 @@ public class Context : MonoBehaviour
     {
         DetectSurface();
 
-        if (!Input.GetKey(KeyCode.W))
+        float acceleration = Gamepad.current.rightTrigger.ReadValue();
+        float brake = Gamepad.current.leftTrigger.ReadValue();
+
+        float horizontalInput = (float)Math.Round(Gamepad.current.leftStick.value.x, 2);
+
+        if (acceleration == 0.0f)
         {
             // if we are currently adding feel remove feel.
         }
@@ -114,32 +120,32 @@ public class Context : MonoBehaviour
                 // if no feel, start feel.
 
                 Forklift.Engine.PreventResistanceForOneFrame = true;
-                Forklift.Engine.Power += EngineAcceleration;
+                Forklift.Engine.Power += EngineAcceleration * acceleration;
                 Forklift.Engine.Power *= surfaceInfo.enginePowerModifier;
                 // ????
                 Forklift.Engine.Power = Forklift.Engine.Power > EnginePowerMax ? EnginePowerMax : Forklift.Engine.Power;
             }
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (brake != 0.0f)
         {
             if (Forklift.Engine.Power > 0)
             {
-                Forklift.Engine.Power -= Brake;
+                Forklift.Engine.Power -= Brake * brake;
                 //todo refactor.
                 Forklift.Engine.Power = Forklift.Engine.Power < 0.0f ? 0.0f : Forklift.Engine.Power;
             }
             else
             {
                 Forklift.Engine.PreventResistanceForOneFrame = true;
-                Forklift.Engine.Power -= EngineAcceleration;
+                Forklift.Engine.Power -= EngineAcceleration * brake;
                 Forklift.Engine.Power *= surfaceInfo.enginePowerModifier;
                 Forklift.Engine.Power = Forklift.Engine.Power < EnginePowerMin ? EnginePowerMin : Forklift.Engine.Power;
             }
         }
 
         bool moving = false;
-        if (Input.GetKey(KeyCode.D))
+        if (horizontalInput != 0.0f && horizontalInput > 0.0f)
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
             Forklift.Wheels.Power += WheelsPower * surfaceInfo.turningSlipModifier;
@@ -163,7 +169,7 @@ public class Context : MonoBehaviour
 
             moving = true;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (horizontalInput != 0.0f && horizontalInput < 0.0f)
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
             Forklift.Wheels.Power -= WheelsPower * surfaceInfo.turningSlipModifier;
