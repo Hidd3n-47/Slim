@@ -63,10 +63,7 @@ public class Forklift : MonoBehaviour
 
     void UpdateWheels()
     {
-        float reversingModifier = Engine.Power < 0.0f ? -1.0f : 1.0f;
-        Wheels.Power *= reversingModifier;
         Wheels.Refresh();
-        Wheels.Power *= reversingModifier;
     }
 
     void UpdateEngine()

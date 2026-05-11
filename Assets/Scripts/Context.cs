@@ -48,48 +48,58 @@ public class Context : MonoBehaviour
         Forklift.Engine.Resistance = EngineResistance;
         Forklift.Wheels.Resistance = WheelsResistance;
 
-        //Forklift.OnCollideFront += (Collision collision) =>
-        //{
-        //    Forklift.Engine.Power = -Forklift.Engine.Power ;
-        //    Forklift.ExternalForces.Add(new Force()
-        //    {
-        //        Transform = Forklift.transform, Power = Forklift.Engine.Power, Resistance = Forklift.Engine.Resistance
-        //    });
-        //    // add feel or particles for the bump.
-        //};
-        //Forklift.OnCollideBack += (Collision collision) =>
-        //{
-        //    Forklift.Engine.Power = -Forklift.Engine.Power ;
-        //    Forklift.ExternalForces.Add(new Force()
-        //    {
-        //        Transform = Forklift.transform,
-        //        Power = Forklift.Engine.Power,
-        //        Resistance = Forklift.Engine.Resistance
-        //    });
-        //    // add feel or particles for the bump.
-        //};
-        //Forklift.OnCollideLeft += (Collision collision) =>
-        //{
-        //    Forklift.Engine.Power = -Forklift.Engine.Power;
-        //    Forklift.ExternalForces.Add(new Force()
-        //    {
-        //        Transform = Forklift.transform,
-        //        Power = Forklift.Engine.Power,
-        //        Resistance = Forklift.Engine.Resistance
-        //    });
-        //    // add feel or particles for the bump.
-        //};
-        //Forklift.OnCollideRight += (Collision collision) =>
-        //{
-        //    Forklift.Engine.Power = -Forklift.Engine.Power;
-        //    Forklift.ExternalForces.Add(new Force()
-        //    {
-        //        Transform = Forklift.transform,
-        //        Power = Forklift.Engine.Power,
-        //        Resistance = Forklift.Engine.Resistance
-        //    });
-        //    // add feel or particles for the bump.
-        //};
+        Forklift.OnCollideFront += (Collision collision) =>
+        {
+            if (collision.gameObject.tag == "Cone") return;
+
+            Forklift.Engine.Power *= -1;
+            Forklift.ExternalForces.Add(new Force()
+            {
+                Transform = Forklift.transform,
+                Power = Forklift.Engine.Power,
+                Resistance = Forklift.Engine.Resistance
+            });
+            // add feel or particles for the bump.
+        };
+        Forklift.OnCollideBack += (Collision collision) =>
+        {
+            if (collision.gameObject.tag == "Cone") return;
+
+            Forklift.Engine.Power *= -1;
+            Forklift.ExternalForces.Add(new Force()
+            {
+                Transform = Forklift.transform,
+                Power = Forklift.Engine.Power,
+                Resistance = Forklift.Engine.Resistance
+            });
+            // add feel or particles for the bump.
+        };
+        Forklift.OnCollideLeft += (Collision collision) =>
+        {
+            if (collision.gameObject.tag == "Cone") return;
+
+            Forklift.Wheels.Power *= -1;
+            Forklift.ExternalForces.Add(new Force()
+            {
+                Transform = Forklift.transform,
+                Power = Forklift.Engine.Power,
+                Resistance = Forklift.Engine.Resistance
+            });
+            // add feel or particles for the bump.
+        };
+        Forklift.OnCollideRight += (Collision collision) =>
+        {
+            if (collision.gameObject.tag == "Cone") return;
+
+            Forklift.Wheels.Power *= -1;
+            Forklift.ExternalForces.Add(new Force()
+            {
+                Transform = Forklift.transform,
+                Power = Forklift.Engine.Power,
+                Resistance = Forklift.Engine.Resistance
+            });
+            // add feel or particles for the bump.
+        };
     }
     void DetectSurface()
     {
