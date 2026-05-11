@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2762391901789539852
 Transform:
@@ -62,10 +62,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693405168685294284}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1e+9
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -81,7 +81,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 126
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!1001 &3608308681420406192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,6 +133,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_Name
       value: SM_WoodenCrate_z_Pallet (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
@@ -196,6 +200,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9608ebfb684817341828f2c90161b0c0, type: 3}
       propertyPath: m_Name
       value: SM_ShelvingUnit_2 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9608ebfb684817341828f2c90161b0c0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 9608ebfb684817341828f2c90161b0c0, type: 3}
@@ -272,6 +280,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WoodenCrate_z_Pallet
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
     m_RemovedGameObjects: []
@@ -335,6 +347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WoodenCrate_z_Pallet (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
     m_RemovedGameObjects: []
@@ -397,6 +413,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_Name
       value: SM_WoodenCrate_z_Pallet (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
