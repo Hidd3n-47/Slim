@@ -17148,13 +17148,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_V3
       objectReference: {fileID: 0}
+    - target: {fileID: 2958365421575037831, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
+      propertyPath: rotationCorrectionOnCollision
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4212471351521091097, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.95
       objectReference: {fileID: 0}
     - target: {fileID: 4212471351521091097, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.011
       objectReference: {fileID: 0}
     - target: {fileID: 4212471351521091097, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17186,6 +17190,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4212471351521091097, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997536847176677529, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
+      propertyPath: BodyRotateAmount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

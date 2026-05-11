@@ -39,6 +39,9 @@ public class Context : MonoBehaviour
 
     public float previousMaxPower = 0.0f;
 
+    public float bounceBackPercentage = 0.4f;
+    public float rotationCorrectionOnCollision = 100.0f;
+
     private void Awake()
     {
         //surfaceLayerMask = LayerMask.NameToLayer("GroundSurface");
@@ -52,12 +55,14 @@ public class Context : MonoBehaviour
         {
             if (collision.gameObject.tag == "Cone") return;
 
-            Forklift.Engine.Power *= -1;
+            Forklift.Engine.Power *= -bounceBackPercentage;
             Forklift.ExternalForces.Add(new Force()
             {
-                Transform = Forklift.transform,
-                Power = Forklift.Engine.Power,
-                Resistance = Forklift.Engine.Resistance
+                Type       = ForceType.Rotation,
+                Transform  = Forklift.transform,
+                Power      = rotationCorrectionOnCollision,
+                Resistance = Forklift.Engine.Resistance,
+                Direction  = Forklift.transform.up
             });
             // add feel or particles for the bump.
         };
@@ -65,12 +70,14 @@ public class Context : MonoBehaviour
         {
             if (collision.gameObject.tag == "Cone") return;
 
-            Forklift.Engine.Power *= -1;
+            Forklift.Engine.Power *= -bounceBackPercentage;
             Forklift.ExternalForces.Add(new Force()
             {
-                Transform = Forklift.transform,
-                Power = Forklift.Engine.Power,
-                Resistance = Forklift.Engine.Resistance
+                Type       = ForceType.Rotation,
+                Transform  = Forklift.transform,
+                Power      = rotationCorrectionOnCollision,
+                Resistance = Forklift.Engine.Resistance,
+                Direction  = Forklift.transform.up
             });
             // add feel or particles for the bump.
         };
@@ -78,26 +85,14 @@ public class Context : MonoBehaviour
         {
             if (collision.gameObject.tag == "Cone") return;
 
-            Forklift.Wheels.Power *= -1;
-            Forklift.ExternalForces.Add(new Force()
-            {
-                Transform = Forklift.transform,
-                Power = Forklift.Engine.Power,
-                Resistance = Forklift.Engine.Resistance
-            });
+            Forklift.Wheels.Power *= -bounceBackPercentage;
             // add feel or particles for the bump.
         };
         Forklift.OnCollideRight += (Collision collision) =>
         {
             if (collision.gameObject.tag == "Cone") return;
 
-            Forklift.Wheels.Power *= -1;
-            Forklift.ExternalForces.Add(new Force()
-            {
-                Transform = Forklift.transform,
-                Power = Forklift.Engine.Power,
-                Resistance = Forklift.Engine.Resistance
-            });
+            Forklift.Wheels.Power *= -bounceBackPercentage;
             // add feel or particles for the bump.
         };
     }
@@ -207,7 +202,7 @@ public class Context : MonoBehaviour
         float t = Math.Abs(horizontalInput);
         float rotation = Math.Sign(horizontalInput) * Mathf.Lerp(0.0f, rotationAmount, t);
 
-        var bodyRotation = Quaternion.Euler(0.0f, -90.0f - rotation, 0.0f);
+        var bodyRotation = Quaternion.Euler(0.0f, -rotation, 0.0f);
         rightWheel.localRotation = bodyRotation;
         leftWheel.localRotation = bodyRotation;
         //Forklift.Engine.PreventResistanceForOneFrame = false;

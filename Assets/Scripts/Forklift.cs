@@ -91,7 +91,7 @@ public class Forklift : MonoBehaviour
         float tTurning = Math.Abs(Wheels.Power) / Math.Abs(turningBound);
         float bodyTurningRotation = Math.Sign(turningBound) * Mathf.Lerp(0.0f, maxBodyRotationAmount, tTurning);
 
-        var bodyRotation = Quaternion.Euler(bodyAccelerationRotation, -90.0f, bodyTurningRotation);
+        var bodyRotation = Quaternion.Euler(bodyAccelerationRotation, 0.0f, bodyTurningRotation);
         Body.localRotation = bodyRotation;
     }
 }
