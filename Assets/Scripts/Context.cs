@@ -2,6 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static PlayerMovement;
 using static UnityEngine.UI.Image;
 
 public class Context : MonoBehaviour
@@ -31,56 +32,64 @@ public class Context : MonoBehaviour
     private bool rotatedLeft = false;
     private bool rotatedRight = false;
 
+    public float enginePowerPercentageToTriggerTurningLock = 0.6f;
+    public float wheelLerpAmountMaxLock = 0.3f;
+    public float wheelLerpAmountMinLock = 0.6f;
+    public float wheelMaxTurnPower = 1.5f;
+
+    public float previousMaxPower = 0.0f;
+
     private void Awake()
     {
         //surfaceLayerMask = LayerMask.NameToLayer("GroundSurface");
 
         // camera parenting to current transform.
+        //todo this is a problem as you cannot runtime change these values.
         Forklift.Engine.Resistance = EngineResistance;
         Forklift.Wheels.Resistance = WheelsResistance;
 
-        Forklift.OnCollideFront += (Collision collision) =>
-        {
-            Forklift.Engine.Power = -Forklift.Engine.Power / 2.0f;
-            Forklift.ExternalForces.Add(new Force()
-            {
-                Transform = Forklift.transform, Power = Forklift.Engine.Power, Resistance = Forklift.Engine.Resistance
-            });
-            // add feel or particles for the bump.
-        };
-        Forklift.OnCollideBack += (Collision collision) =>
-        {
-            Forklift.Engine.Power = -Forklift.Engine.Power / 2.0f;
-            Forklift.ExternalForces.Add(new Force()
-            {
-                Transform = Forklift.transform,
-                Power = Forklift.Engine.Power,
-                Resistance = Forklift.Engine.Resistance
-            });
-            // add feel or particles for the bump.
-        };
-        Forklift.OnCollideLeft += (Collision collision) =>
-        {
-            Forklift.Engine.Power = -Forklift.Engine.Power / 2.0f;
-            Forklift.ExternalForces.Add(new Force()
-            {
-                Transform = Forklift.transform,
-                Power = Forklift.Engine.Power,
-                Resistance = Forklift.Engine.Resistance
-            });
-            // add feel or particles for the bump.
-        };
-        Forklift.OnCollideRight += (Collision collision) =>
-        {
-            Forklift.Engine.Power = -Forklift.Engine.Power / 2.0f;
-            Forklift.ExternalForces.Add(new Force()
-            {
-                Transform = Forklift.transform,
-                Power = Forklift.Engine.Power,
-                Resistance = Forklift.Engine.Resistance
-            });
-            // add feel or particles for the bump.
-        };
+        //Forklift.OnCollideFront += (Collision collision) =>
+        //{
+        //    Forklift.Engine.Power = -Forklift.Engine.Power ;
+        //    Forklift.ExternalForces.Add(new Force()
+        //    {
+        //        Transform = Forklift.transform, Power = Forklift.Engine.Power, Resistance = Forklift.Engine.Resistance
+        //    });
+        //    // add feel or particles for the bump.
+        //};
+        //Forklift.OnCollideBack += (Collision collision) =>
+        //{
+        //    Forklift.Engine.Power = -Forklift.Engine.Power ;
+        //    Forklift.ExternalForces.Add(new Force()
+        //    {
+        //        Transform = Forklift.transform,
+        //        Power = Forklift.Engine.Power,
+        //        Resistance = Forklift.Engine.Resistance
+        //    });
+        //    // add feel or particles for the bump.
+        //};
+        //Forklift.OnCollideLeft += (Collision collision) =>
+        //{
+        //    Forklift.Engine.Power = -Forklift.Engine.Power;
+        //    Forklift.ExternalForces.Add(new Force()
+        //    {
+        //        Transform = Forklift.transform,
+        //        Power = Forklift.Engine.Power,
+        //        Resistance = Forklift.Engine.Resistance
+        //    });
+        //    // add feel or particles for the bump.
+        //};
+        //Forklift.OnCollideRight += (Collision collision) =>
+        //{
+        //    Forklift.Engine.Power = -Forklift.Engine.Power;
+        //    Forklift.ExternalForces.Add(new Force()
+        //    {
+        //        Transform = Forklift.transform,
+        //        Power = Forklift.Engine.Power,
+        //        Resistance = Forklift.Engine.Resistance
+        //    });
+        //    // add feel or particles for the bump.
+        //};
     }
     void DetectSurface()
     {
@@ -94,36 +103,42 @@ public class Context : MonoBehaviour
         surfaceInfo = info;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        Forklift.Engine.Resistance = EngineResistance;
+        Forklift.Wheels.Resistance = WheelsResistance;
+
         DetectSurface();
 
         float acceleration = Gamepad.current.rightTrigger.ReadValue();
-        float brake = Gamepad.current.leftTrigger.ReadValue();
-
-        float horizontalInput = (float)Math.Round(Gamepad.current.leftStick.value.x, 2);
-
-        if (acceleration == 0.0f)
+        float brake        = Gamepad.current.leftTrigger.ReadValue();
+        float maxPower = Mathf.Lerp(0.0f, EnginePowerMax, acceleration);
+        if (previousMaxPower == 0.0f || previousMaxPower < maxPower)
         {
-            // if we are currently adding feel remove feel.
+            previousMaxPower = maxPower;
         }
         else
         {
+            previousMaxPower -= EngineResistance * Time.deltaTime;
+        }
+
+        float horizontalInput = (float)Math.Round(Gamepad.current.leftStick.value.x, 2);
+
+        if (acceleration != 0.0f)
+        {
+            // todo investigate what I was thinking with this case: if we are revering and accelerate?
             if (Forklift.Engine.Power < 0)
             {
                 Forklift.Engine.Power += Brake;
-                // ???? should this be engine power min??
-                Forklift.Engine.Power = Forklift.Engine.Power > 0 ? 0 : Forklift.Engine.Power;
+                //todo this max should be inside the forklift get and set property.
+                Forklift.Engine.Power = Math.Min(Forklift.Engine.Power, 0);
             }
             else
             {
-                // if no feel, start feel.
-
                 Forklift.Engine.PreventResistanceForOneFrame = true;
-                Forklift.Engine.Power += EngineAcceleration * acceleration;
-                Forklift.Engine.Power *= surfaceInfo.enginePowerModifier;
-                // ????
-                Forklift.Engine.Power = Forklift.Engine.Power > EnginePowerMax ? EnginePowerMax : Forklift.Engine.Power;
+                Forklift.Engine.Power += EngineAcceleration;
+                //todo this max should be inside the forklift get and set property.
+                Forklift.Engine.Power = Math.Min(Forklift.Engine.Power, previousMaxPower);
             }
         }
 
@@ -131,83 +146,61 @@ public class Context : MonoBehaviour
         {
             if (Forklift.Engine.Power > 0)
             {
-                Forklift.Engine.Power -= Brake * brake;
-                //todo refactor.
-                Forklift.Engine.Power = Forklift.Engine.Power < 0.0f ? 0.0f : Forklift.Engine.Power;
+                Forklift.Engine.PreventResistanceForOneFrame = true;
+                Forklift.Engine.Power -= EngineAcceleration * brake;
+                //todo this max should be inside the forklift get and set property.
+                Forklift.Engine.Power = Math.Max(Forklift.Engine.Power, 0);
             }
             else
             {
                 Forklift.Engine.PreventResistanceForOneFrame = true;
                 Forklift.Engine.Power -= EngineAcceleration * brake;
-                Forklift.Engine.Power *= surfaceInfo.enginePowerModifier;
+                //todo this max should be inside the forklift get and set property.
                 Forklift.Engine.Power = Forklift.Engine.Power < EnginePowerMin ? EnginePowerMin : Forklift.Engine.Power;
             }
         }
 
-        bool moving = false;
+        // Player is breaking and accelerating so allow resistance to work.
+        Forklift.Engine.PreventResistanceForOneFrame = !Mathf.Approximately(acceleration, brake) && Forklift.Engine.PreventResistanceForOneFrame;
+        // Apply the surface modifier to the engine power.
+        Forklift.Engine.Power *= surfaceInfo.enginePowerModifier;
+
+        // Apply lock up on the turning axis.
+        //float lockupPower = enginePowerPercentageToTriggerTurningLock * EnginePowerMax;
+        //float turning = WheelsPower;
+        //if (acceleration > 0.0f &&
+        //    acceleration > lockupPower)
+            float lockupPower = enginePowerPercentageToTriggerTurningLock;
+        float turning = WheelsPower;
+        if (acceleration > 0.0f && acceleration > lockupPower)
+        {
+            turning = Mathf.Lerp(WheelsPower, wheelMaxTurnPower,
+                (acceleration - lockupPower) / (1.0f - lockupPower));
+        }
+
         if (horizontalInput != 0.0f && horizontalInput > 0.0f)
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
-            Forklift.Wheels.Power += WheelsPower * surfaceInfo.turningSlipModifier;
-            //Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
-            Forklift.Wheels.Power =
-                Forklift.Wheels.Power > WheelsPowerMax ? WheelsPowerMax : Forklift.Wheels.Power;
-
-            if (!rotatedLeft)
-            {
-                float rotAmount = -rotationAmount;
-                if (rotatedRight)
-                {
-                    rotAmount -= rotationAmount;
-                }
-                leftWheel.Rotate(Vector3.up, rotAmount);
-                rightWheel.Rotate(Vector3.up, rotAmount);
-
-                rotatedRight = false;
-                rotatedLeft = true;
-            }
-
-            moving = true;
+            Forklift.Wheels.Power += turning * surfaceInfo.turningSlipModifier;
+            //todo this max should be inside the forklift get and set property.
+            Forklift.Wheels.Power = Math.Min(Forklift.Wheels.Power, WheelsPowerMax);
         }
         else if (horizontalInput != 0.0f && horizontalInput < 0.0f)
         {
             Forklift.Wheels.PreventResistanceForOneFrame = true;
-            Forklift.Wheels.Power -= WheelsPower * surfaceInfo.turningSlipModifier;
-            //Forklift.Wheels.Power *= Forklift.Engine.Power != 0.0f ? 1.0f : 0.0f;
-            Forklift.Wheels.Power =
-                Forklift.Wheels.Power < WheelsPowerMin ? WheelsPowerMin : Forklift.Wheels.Power;
-
-            if (!rotatedRight)
-            {
-                float rotAmount = rotationAmount;
-                if (rotatedLeft)
-                {
-                    rotAmount = rotationAmount;
-                }
-                leftWheel.Rotate(Vector3.up, rotAmount);
-                rightWheel.Rotate(Vector3.up, rotAmount);
-
-                rotatedLeft = false;
-                rotatedRight = true;
-            }
-
-            moving = true;
+            Forklift.Wheels.Power -= turning * surfaceInfo.turningSlipModifier;
+            //todo this max should be inside the forklift get and set property.
+            Forklift.Wheels.Power = Math.Max(Forklift.Wheels.Power, WheelsPowerMin);
         }
 
-        if (!moving)
-        {
-            if (rotatedLeft)
-            {
-                leftWheel.Rotate(Vector3.up, rotationAmount);
-                rightWheel.Rotate(Vector3.up, rotationAmount);
-                rotatedLeft = false;
-            }
-            else if (rotatedRight)
-            {
-                leftWheel.Rotate(Vector3.up, -rotationAmount);
-                rightWheel.Rotate(Vector3.up, -rotationAmount);
-                rotatedRight = false;
-            }
-        }
+        // Body rotation based off the acceleration/deceleration power. 
+        float t = Math.Abs(horizontalInput);
+        float rotation = Math.Sign(horizontalInput) * Mathf.Lerp(0.0f, rotationAmount, t);
+
+        var bodyRotation = Quaternion.Euler(0.0f, -90.0f - rotation, 0.0f);
+        rightWheel.localRotation = bodyRotation;
+        leftWheel.localRotation = bodyRotation;
+        //Forklift.Engine.PreventResistanceForOneFrame = false;
+        //Forklift.Wheels.PreventResistanceForOneFrame = false;
     }
 }

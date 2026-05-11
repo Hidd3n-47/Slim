@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using System;
 using UnityEngine;
 
 public enum ForceType
@@ -12,9 +12,9 @@ public class Force
     public ForceType Type = ForceType.Translation;
 
     public Transform Transform = null;
-    public float Power = 0.0f;
-    public float Resistance = 0.0f;
-    public Vector3 Direction = Vector3.zero;
+    public float Power         = 0.0f;
+    public float Resistance    = 0.0f;
+    public Vector3 Direction   = Vector3.zero;
 
     public bool PreventResistanceForOneFrame = false;
 
@@ -36,26 +36,11 @@ public class Force
             return;
         }
 
-        //todo refactor to be ternary.
-        if (Power > 0)
-        {
-            Power -= Resistance;
+        int sign = Math.Sign(Power);
 
-            // todo max function instead
-            if (Power < 0)
-            {
-                Power = 0;
-            }
-        }
-        else
-        {
-            Power += Resistance;
-
-            // todo min function instead.
-            if (Power > 0)
-            {
-                Power = 0;
-            }
-        }
+        // Since Resistance is opposing the force, multiply by -1.
+        Power += Resistance * (-1 * sign) * Time.deltaTime;
+        // If the force changes direction, reset back to zero.
+        Power = sign > 0 ? Math.Max(Power, 0) : Math.Min(Power, 0);
     }
 }

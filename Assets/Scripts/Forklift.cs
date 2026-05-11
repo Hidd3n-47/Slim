@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Forklift : MonoBehaviour
@@ -15,18 +14,23 @@ public class Forklift : MonoBehaviour
     public BoxCollider ColliderRight;
     public BoxCollider ColliderLeft;
 
-    public Force Engine = new Force();
-    public Force Wheels = new Force();
+    public Force Engine = new();
+    public Force Wheels = new();
 
-    public List<Force> ExternalForces = new List<Force>();
+    public List<Force> ExternalForces = new();
 
-    public bool IsDriving = false;
 
     public Transform Body;
     public float BodyRotateAmount = 15.0f;
 
+    private float maxBodyRotationAmount;
+
     public bool rotatingLeft = false;
     public bool rotatingRight = false;
+
+    private float engineMaxPower = 7.0f;
+    private float engineMinPower = -3.0f;
+    private float wheelsMaxPower = 300.0f;
 
     void Awake()
     {
@@ -36,6 +40,8 @@ public class Forklift : MonoBehaviour
         Wheels.Type = ForceType.Rotation;
         Wheels.Transform = transform;
         Wheels.Direction = Vector3.up;
+
+        maxBodyRotationAmount = BodyRotateAmount;
     }
 
     private void Update()
@@ -43,6 +49,7 @@ public class Forklift : MonoBehaviour
         UpdateExternalForces();
         UpdateWheels();
         UpdateEngine();
+        UpdateBodyRotation();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -56,49 +63,6 @@ public class Forklift : MonoBehaviour
 
     void UpdateWheels()
     {
-        // If we are swaying left and already rotated to the left, reset rotation.
-        if (Wheels.Power < 0.0f && !rotatingLeft)
-        {
-            if (rotatingRight)
-            {
-                Body.Rotate(Vector3.forward, -BodyRotateAmount, Space.Self);
-            }
-            // feel deactivate varient by id on the right?
-            Body.Rotate(Vector3.forward, -BodyRotateAmount, Space.Self);
-            rotatingLeft = true;
-            rotatingRight = false;
-        }
-
-        // If we are swaying right and already rotated to the right, reset rotation.
-        if (Wheels.Power > 0.0f && !rotatingRight)
-        {
-            if (rotatingLeft)
-            {
-                Body.Rotate(Vector3.forward, BodyRotateAmount, Space.Self);
-            }
-            // feel deactivate varient by id on the left?
-            Body.Rotate(Vector3.forward, BodyRotateAmount, Space.Self);
-            rotatingLeft = false;
-            rotatingRight = true;
-        }
-
-        if (Wheels.Power == 0.0f)
-        {
-            if (rotatingLeft)
-            {
-                Body.Rotate(Vector3.forward, BodyRotateAmount, Space.Self);
-            }
-            else if (rotatingRight)
-            {
-                Body.Rotate(Vector3.forward, -BodyRotateAmount, Space.Self);
-            }
-
-            rotatingLeft = false;
-            rotatingRight = false;
-        }
-
-        // If wheel power > 0 rotate to the right by 15 degrees swaying the car.
-        // If wheel power < 0 rotate to the left by 15 (so -15) degrees
         float reversingModifier = Engine.Power < 0.0f ? -1.0f : 1.0f;
         Wheels.Power *= reversingModifier;
         Wheels.Refresh();
@@ -107,19 +71,6 @@ public class Forklift : MonoBehaviour
 
     void UpdateEngine()
     {
-        if ((Engine.Power > 0 || Engine.Power < 0) && !IsDriving)
-        {
-            IsDriving = true;
-            // Try activate some feel like tilting the car up due to accelerating.
-            Body.Rotate(Vector3.right, BodyRotateAmount, Space.Self);
-        }
-
-        if (Engine.Power == 0 && IsDriving)
-        {
-            IsDriving = false;
-            // reset the feel to be stopped due to being done driving.
-            Body.Rotate(Vector3.right, -BodyRotateAmount, Space.Self);
-        }
 
         Engine.Direction = transform.forward;
         Engine.Refresh();
@@ -127,20 +78,23 @@ public class Forklift : MonoBehaviour
 
     void UpdateExternalForces()
     {
-        List<Force> toRemove = new List<Force>();
+        ExternalForces.ForEach(f => f.Refresh());
+        ExternalForces.RemoveAll(f => f.Power == 0.0f);
+    }
 
-        foreach (Force f in ExternalForces)
-        {
-            f.Refresh();
-            if (f.Power == 0.0f)
-            {
-                toRemove.Add(f);
-            }
-        }
+    private void UpdateBodyRotation()
+    {
+        // Body rotation based off the acceleration/deceleration power. 
+        float accelerationBound = Engine.Power > 0.0f ? engineMaxPower : engineMinPower;
+        float tAcceleration = Math.Abs(Engine.Power) / Math.Abs(accelerationBound);
+        float bodyAccelerationRotation = Math.Sign(accelerationBound) * Mathf.Lerp(0.0f, maxBodyRotationAmount, tAcceleration);
 
-        foreach (var f in toRemove)
-        {
-            ExternalForces.Remove(f);
-        }
+        // Body rotation based off the turning power. 
+        float turningBound = Wheels.Power > 0.0f ? wheelsMaxPower : -wheelsMaxPower;
+        float tTurning = Math.Abs(Wheels.Power) / Math.Abs(turningBound);
+        float bodyTurningRotation = Math.Sign(turningBound) * Mathf.Lerp(0.0f, maxBodyRotationAmount, tTurning);
+
+        var bodyRotation = Quaternion.Euler(bodyAccelerationRotation, -90.0f, bodyTurningRotation);
+        Body.localRotation = bodyRotation;
     }
 }
