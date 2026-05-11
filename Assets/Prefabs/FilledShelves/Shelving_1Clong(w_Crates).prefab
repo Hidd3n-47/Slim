@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5024333702215997270}
   - component: {fileID: 4441448804145772448}
   m_Layer: 0
-  m_Name: Shelving_2x2(w_Crates)
+  m_Name: Shelving_1Clong(w_Crates)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,6 +130,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 976d73af15ae36c40b90e984f994c8c1, type: 3}
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_Name
       value: SM_WoodenCrate_z_Pallet (81)
@@ -197,6 +201,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 976d73af15ae36c40b90e984f994c8c1, type: 3}
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_Name
       value: SM_WoodenCrate_z_Pallet (80)
@@ -264,6 +272,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 145722b1d0f2de44a977bcd4c6126b33, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 8dcca8f2d66a6974faec776d51b274e6, type: 3}
     - target: {fileID: 919132149155446097, guid: 145722b1d0f2de44a977bcd4c6126b33, type: 3}
       propertyPath: m_Name
       value: SM_ShelvingUnit_1 (1)
