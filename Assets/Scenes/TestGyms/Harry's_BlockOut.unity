@@ -6454,10 +6454,10 @@ MonoBehaviour:
   mat: {fileID: 0}
   hueMin: -15
   hueMax: 15
-  saturationMin: -1
-  saturationMax: 1
-  brightnessMin: -1
-  brightnessMax: 1
+  saturationMin: 0.6
+  saturationMax: 1.2
+  brightnessMin: -0.05
+  brightnessMax: 0.05
 --- !u!4 &442454820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5185224594775473191, guid: a5c4e5b439b94764fa629d2235bc6690, type: 3}
