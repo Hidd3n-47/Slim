@@ -50,7 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b8d579c115cc0494fb061dc2a21f8258, type: 3}
       propertyPath: m_Name
-      value: SM_Cone_1
+      value: SM_Cone
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b8d579c115cc0494fb061dc2a21f8258, type: 3}
+      propertyPath: m_TagString
+      value: Cone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
