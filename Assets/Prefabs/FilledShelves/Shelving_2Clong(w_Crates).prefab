@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2762391901789539852}
   - component: {fileID: 7963932613233294787}
   - component: {fileID: 6431846347959142429}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shelving_2Clong(w_Crates)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,11 +139,18 @@ PrefabInstance:
       value: SM_WoodenCrate_z_Pallet (2)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+    - target: {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -208,6 +215,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9608ebfb684817341828f2c90161b0c0, type: 3}
       propertyPath: m_Name
       value: SM_ShelvingUnit_2 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9608ebfb684817341828f2c90161b0c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9608ebfb684817341828f2c90161b0c0, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -293,11 +304,18 @@ PrefabInstance:
       value: SM_WoodenCrate_z_Pallet
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+    - target: {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -364,11 +382,18 @@ PrefabInstance:
       value: SM_WoodenCrate_z_Pallet (1)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+    - target: {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -435,11 +460,18 @@ PrefabInstance:
       value: SM_WoodenCrate_z_Pallet (3)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+    - target: {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

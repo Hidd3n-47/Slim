@@ -223,7 +223,6 @@ public class Context : MonoBehaviour
     void WheelRotation(float lockedRotation)
     {
         float powerPercentage = Forklift.Engine.Power / (Forklift.Engine.Power > 0.0f ? EnginePowerMax : EnginePowerMin);
-        Debug.Log(powerPercentage);
         float rotationAmount = Mathf.Lerp(0.0f, WheelTurningRate, powerPercentage) * Math.Sign(Forklift.Engine.Power);
 
         wheelSpinX += rotationAmount;
