@@ -85,6 +85,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AttachmentUp",
+                    "type": "Button",
+                    "id": "95c5f5a5-8d36-42df-a816-7ad4b4b90d7d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AttachmentDown",
+                    "type": "Button",
+                    "id": "9a26124d-2d88-4bfd-bf75-371c7cd702a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -470,6 +488,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f64b2a88-2c8a-4b2e-b16e-36c43e070ee8",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "AttachmentUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c9054a0-0385-431e-abff-4aa10f07ddbd",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "AttachmentDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

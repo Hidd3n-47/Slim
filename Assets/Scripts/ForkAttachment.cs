@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ForkAttachment : MonoBehaviour
 {
@@ -43,14 +44,16 @@ public class ForkAttachment : MonoBehaviour
         }
         /// 
 
+        var rightShoulder = Gamepad.current.rightShoulder;
+        var leftShoulder  = Gamepad.current.leftShoulder;
 
         float attachMoveSpeed = 0.0f;
 
-        if (Input.GetKey(KeyCode.Q))
+        if (leftShoulder.isPressed)
         {
             attachMoveSpeed += -1.0f;
         }
-        if (Input.GetKey(KeyCode.E))
+        if (rightShoulder.isPressed)
         {
             attachMoveSpeed += 1.0f;
         }
