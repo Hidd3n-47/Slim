@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac444e5d820279b4398dba88ff5c89e7, type: 3}
+  m_Name: SO_CrateOptions
+  m_EditorClassIdentifier: 
+  crateList:
+  - {fileID: 7061057077124445802, guid: 168d2f29e950f6e4bb8cb5df8aba14f3, type: 3}
+  - {fileID: 796188260380485459, guid: a9fe8573d0a1cb74e832db5b2da1a5db, type: 3}
