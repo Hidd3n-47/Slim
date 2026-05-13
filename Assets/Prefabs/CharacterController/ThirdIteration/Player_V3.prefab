@@ -175,7 +175,7 @@ MonoBehaviour:
   WheelsPower: 3.4
   WheelsPowerMax: 250
   WheelsPowerMin: -250
-  WheelsResistance: 120
+  WheelsResistance: 125
   surfaceLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1049,7 +1049,7 @@ Transform:
   m_GameObject: {fileID: 5486122409321046661}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalPosition: {x: 0, y: 10, z: -6.627714}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1172eb396920748a1b6faa85c9aef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationTime: 0.5
+  rotationTime: 0.25
   snappingAmount: 90
   player: {fileID: 1704087396669966599}
 --- !u!114 &4753318225363673248
@@ -1202,8 +1202,8 @@ MonoBehaviour:
   player: {fileID: 1704087396669966599}
   cameraTarget: {fileID: 8254064102031025470}
   cameraManager: {fileID: 1219794781268299761}
-  positionLinearInterpolationAmount: 0.03
-  rotationLinearInterpolationAmount: 0.01
+  positionLinearInterpolationAmount: 0.15
+  rotationLinearInterpolationAmount: 0.15
 --- !u!1 &6346021306574671264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d89e2eeeab2ef348b635ce56cf0bab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraType: 3
+  cameraType: 2
   cameraTransform: {fileID: 7172567443249688208}
 --- !u!1 &7954195738403471585
 GameObject:
@@ -1518,6 +1518,11 @@ MonoBehaviour:
   Middle: {fileID: 8737818930507778531}
   Top: {fileID: 5291796263310558491}
   attachmentRaiseSpeed: 2
+  CrateLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  testingPoint: {fileID: 3738091780434958804}
+  attached: 0
 --- !u!1 &8667948764731303990
 GameObject:
   m_ObjectHideFlags: 0
