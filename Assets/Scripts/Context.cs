@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static PlayerMovement;
+using static UnityEditor.FilePathAttribute;
 using static UnityEngine.UI.Image;
 
 public class Context : MonoBehaviour
@@ -26,11 +27,12 @@ public class Context : MonoBehaviour
     private SurfaceInfo surfaceInfo = new SurfaceInfo();
     public Transform groundChecker;
 
+    public Transform frontLeftWheel;
+    public Transform frontRightWheel;
     public Transform leftWheel;
     public Transform rightWheel;
+
     public float rotationAmount = 45.0f;
-    private bool rotatedLeft = false;
-    private bool rotatedRight = false;
 
     public float enginePowerPercentageToTriggerTurningLock = 0.6f;
     public float wheelLerpAmountMaxLock = 0.3f;
@@ -41,6 +43,9 @@ public class Context : MonoBehaviour
 
     public float bounceBackPercentage = 0.4f;
     public float rotationCorrectionOnCollision = 100.0f;
+
+    public float WheelTurningRate = 25.0f;
+    public float WheelTurningRateFront = 15.0f;
 
     private void Awake()
     {
@@ -108,11 +113,18 @@ public class Context : MonoBehaviour
         surfaceInfo = info;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Forklift.Engine.Resistance = EngineResistance;
         Forklift.Wheels.Resistance = WheelsResistance;
 
+        Forklift.engineMaxPower = EnginePowerMax;
+        Forklift.engineMinPower = EnginePowerMin;
+        Forklift.wheelsMaxPower = WheelsPowerMax;
+    }
+
+    private void FixedUpdate()
+    {
         DetectSurface();
 
         float acceleration = Gamepad.current.rightTrigger.ReadValue();
@@ -198,14 +210,28 @@ public class Context : MonoBehaviour
             Forklift.Wheels.Power = Math.Max(Forklift.Wheels.Power, WheelsPowerMin);
         }
 
-        // Body rotation based off the acceleration/deceleration power. 
+        // Wheels rotation based off the turning input. 
         float t = Math.Abs(horizontalInput);
         float rotation = Math.Sign(horizontalInput) * Mathf.Lerp(0.0f, rotationAmount, t);
 
-        var bodyRotation = Quaternion.Euler(0.0f, -rotation, 0.0f);
-        rightWheel.localRotation = bodyRotation;
-        leftWheel.localRotation = bodyRotation;
-        //Forklift.Engine.PreventResistanceForOneFrame = false;
-        //Forklift.Wheels.PreventResistanceForOneFrame = false;
+        WheelRotation(rotation);
+
+    }
+
+    private float wheelSpinX = 0f;
+
+    void WheelRotation(float lockedRotation)
+    {
+        float powerPercentage = Forklift.Engine.Power / (Forklift.Engine.Power > 0.0f ? EnginePowerMax : EnginePowerMin);
+        Debug.Log(powerPercentage);
+        float rotationAmount = Mathf.Lerp(0.0f, WheelTurningRate, powerPercentage) * Math.Sign(Forklift.Engine.Power);
+
+        wheelSpinX += rotationAmount;
+
+        leftWheel.localRotation  = Quaternion.Euler(wheelSpinX, lockedRotation, 0f);
+        rightWheel.localRotation = Quaternion.Euler(wheelSpinX, lockedRotation, 0f);
+
+        frontLeftWheel.localRotation = Quaternion.Euler(wheelSpinX, 0.0f, 0f);
+        frontRightWheel.localRotation = Quaternion.Euler(wheelSpinX, 0.0f, 0f);
     }
 }

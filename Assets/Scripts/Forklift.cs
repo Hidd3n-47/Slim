@@ -28,9 +28,9 @@ public class Forklift : MonoBehaviour
     public bool rotatingLeft = false;
     public bool rotatingRight = false;
 
-    private float engineMaxPower = 7.0f;
-    private float engineMinPower = -3.0f;
-    private float wheelsMaxPower = 300.0f;
+    public float engineMaxPower = 7.0f;
+    public float engineMinPower = -3.0f;
+    public float wheelsMaxPower = 300.0f;
 
     void Awake()
     {
