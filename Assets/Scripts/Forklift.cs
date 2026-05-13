@@ -84,7 +84,7 @@ public class Forklift : MonoBehaviour
         // Body rotation based off the acceleration/deceleration power. 
         float accelerationBound = Engine.Power > 0.0f ? engineMaxPower : engineMinPower;
         float tAcceleration = Math.Abs(Engine.Power) / Math.Abs(accelerationBound);
-        float bodyAccelerationRotation = Math.Sign(accelerationBound) * Mathf.Lerp(0.0f, maxBodyRotationAmount, tAcceleration);
+        float bodyAccelerationRotation = -Math.Sign(accelerationBound) * Mathf.Lerp(0.0f, maxBodyRotationAmount, tAcceleration);
 
         // Body rotation based off the turning power. 
         float turningBound = Wheels.Power > 0.0f ? wheelsMaxPower : -wheelsMaxPower;

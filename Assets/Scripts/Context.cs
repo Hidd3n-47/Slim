@@ -227,8 +227,8 @@ public class Context : MonoBehaviour
 
         wheelSpinX += rotationAmount;
 
-        leftWheel.localRotation  = Quaternion.Euler(wheelSpinX, lockedRotation, 0f);
-        rightWheel.localRotation = Quaternion.Euler(wheelSpinX, lockedRotation, 0f);
+        leftWheel.localRotation  = Quaternion.Euler(wheelSpinX, -lockedRotation, 0f);
+        rightWheel.localRotation = Quaternion.Euler(wheelSpinX, -lockedRotation, 0f);
 
         frontLeftWheel.localRotation = Quaternion.Euler(wheelSpinX, 0.0f, 0f);
         frontRightWheel.localRotation = Quaternion.Euler(wheelSpinX, 0.0f, 0f);
