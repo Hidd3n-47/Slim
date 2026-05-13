@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2235a7a63cfabbf439ab847afd93049c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2235a7a63cfabbf439ab847afd93049c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2235a7a63cfabbf439ab847afd93049c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2235a7a63cfabbf439ab847afd93049c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: -876546973899608171, guid: 002c29c6f8ef68d438cf3305beb21af7, type: 3}
     - target: {fileID: 919132149155446097, guid: 2235a7a63cfabbf439ab847afd93049c, type: 3}
       propertyPath: m_Name
-      value: SM_Modular_Wall_2x14_NoBlue
+      value: SM_Modular_Wall_2x4_NoBlue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
