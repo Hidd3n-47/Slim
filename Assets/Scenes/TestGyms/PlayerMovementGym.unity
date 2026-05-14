@@ -741,7 +741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8132268
+      value: 0.72786385
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -749,7 +749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.58194697
+      value: 0.6857217
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalRotation.z
@@ -761,7 +761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 71.175
+      value: 86.585
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -805,8 +805,20 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1152950089957950841, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
+      propertyPath: BodyRotateAmount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152950089957950841, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: WheelTurningRate
       value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152950089957950841, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
+      propertyPath: SidewayRotationAmount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152950089957950841, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
+      propertyPath: BackwardRotationAmount
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2958365421575037831, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: frontLeftWheel

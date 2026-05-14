@@ -21,9 +21,9 @@ public class Forklift : MonoBehaviour
 
 
     public Transform Body;
-    public float BodyRotateAmount = 15.0f;
-
-    private float maxBodyRotationAmount;
+    public float BodyRotateAmount       = 15.0f;
+    public float BackwardRotationAmount = 5.0f;
+    public float SidewayRotationAmount  = 10.0f;
 
     public bool rotatingLeft = false;
     public bool rotatingRight = false;
@@ -44,8 +44,6 @@ public class Forklift : MonoBehaviour
         Wheels.Type = ForceType.Rotation;
         Wheels.Transform = transform;
         Wheels.Direction = Vector3.up;
-
-        maxBodyRotationAmount = BodyRotateAmount;
     }
 
     private void Update()
@@ -87,13 +85,14 @@ public class Forklift : MonoBehaviour
     {
         // Body rotation based off the acceleration/deceleration power. 
         float accelerationBound = Engine.Power > 0.0f ? engineMaxPower : engineMinPower;
-        float tAcceleration = Math.Abs(Engine.Power) / Math.Abs(accelerationBound);
-        float bodyAccelerationRotation = -Math.Sign(accelerationBound) * Mathf.Lerp(0.0f, maxBodyRotationAmount, tAcceleration);
+        float rotationBound     = Engine.Power > 0.0f ? BodyRotateAmount : BackwardRotationAmount;
+        float tAcceleration     = Math.Abs(Engine.Power) / Math.Abs(accelerationBound);
+        float bodyAccelerationRotation = -Math.Sign(accelerationBound) * Mathf.Lerp(0.0f, rotationBound, tAcceleration);
 
         // Body rotation based off the turning power. 
         float turningBound = Wheels.Power > 0.0f ? wheelsMaxPower : -wheelsMaxPower;
         float tTurning = Math.Abs(Wheels.Power) / Math.Abs(turningBound);
-        float bodyTurningRotation = Math.Sign(turningBound) * Mathf.Lerp(0.0f, maxBodyRotationAmount, tTurning);
+        float bodyTurningRotation = Math.Sign(turningBound) * Mathf.Lerp(0.0f, SidewayRotationAmount, tTurning);
 
         var bodyRotation = Quaternion.Euler(bodyAccelerationRotation, 0.0f, bodyTurningRotation);
         Body.localRotation = bodyRotation;
