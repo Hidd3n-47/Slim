@@ -1,27 +1,30 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class ForkAttachment : MonoBehaviour
 {
-    public Transform Forks;
+    [FormerlySerializedAs("Forks")] [SerializeField] private Transform forks;
+    [FormerlySerializedAs("Poles")] [SerializeField] private Transform poles;
 
-    public Transform Poles;
+    [FormerlySerializedAs("Bottom")] [SerializeField] private Transform bottom;
+    [FormerlySerializedAs("Middle")] [SerializeField] private Transform middle;
+    [FormerlySerializedAs("Top")   ] [SerializeField] private Transform top;
 
-    public Transform Bottom;
-    public Transform Middle;
-    public Transform Top;
+    [SerializeField] private Transform crateAttachmentPoint;
 
-    public float attachmentRaiseSpeed = 2.0f;
+    [SerializeField] private float rayDistance = 0.03f;
+    [SerializeField] private LayerMask crateLayerMask;
 
-    public Crate AttachCrate
+    [SerializeField] private float attachmentRaiseSpeed = 2.0f;
+
+    private Crate attachedCrate;
+
+    private void Update()
     {
-        get;
-        set;
-    }
+        TryAttach();
 
-    void Update()
-    {
         var rightShoulder = Gamepad.current.rightShoulder;
         var leftShoulder  = Gamepad.current.leftShoulder;
 
@@ -36,38 +39,58 @@ public class ForkAttachment : MonoBehaviour
             attachMoveSpeed += 1.0f;
         }
 
-        //todo since we always move the forks, could abstract that out.
-        if (Forks.position.y <= Middle.position.y)
+        if (forks.position.y <= middle.position.y)
         {
-            // move forks only
+            // Move forks only.
             float delta = attachMoveSpeed * attachmentRaiseSpeed * Time.deltaTime;
 
-            Forks.position += new Vector3(0.0f, delta, 0.0f);
-            var pos = Forks.position;
-            pos.y = Math.Clamp(pos.y, Bottom.position.y, Middle.position.y + 0.1f);
-            Forks.position = pos;
+            forks.position += new Vector3(0.0f, delta, 0.0f);
+            var pos = forks.position;
+            pos.y = Math.Clamp(pos.y, bottom.position.y, middle.position.y + 0.1f);
+            forks.position = pos;
 
-            if (Mathf.Approximately(Forks.position.y, Bottom.position.y))
+            if (Mathf.Approximately(forks.position.y, bottom.position.y))
             {
-                AttachCrate?.Detach();
+                if (attachedCrate?.Detach() == true)
+                {
+                    attachedCrate = null;
+                }
             }
         }
         else
         {
-            // move Poles and forks.
+            // Move Poles and Forks.
             float delta = attachMoveSpeed * attachmentRaiseSpeed * Time.deltaTime;
             var deltaVec = new Vector3(0.0f, delta, 0.0f);
-            Forks.position += deltaVec;
+            forks.position += deltaVec;
 
-            var posForks = Forks.position;
-            posForks.y = Math.Clamp(posForks.y, Middle.position.y, Top.position.y);
-            Forks.position = posForks;
-            Poles.position += deltaVec;
+            var posForks = forks.position;
+            posForks.y = Math.Clamp(posForks.y, middle.position.y, top.position.y);
+            forks.position = posForks;
+            poles.position += deltaVec;
 
-            var pos = Poles.position;
-            pos.y = Math.Clamp(pos.y, Middle.position.y, Top.position.y);
-            Poles.position = pos;
+            var pos = poles.position;
+            pos.y = Math.Clamp(pos.y, middle.position.y, top.position.y);
+            poles.position = pos;
 
+        }
+    }
+
+    private void TryAttach()
+    {
+        // Already attached, no need to try and attach again.
+        if (attachedCrate) return;
+
+        Debug.DrawLine(crateAttachmentPoint.position, crateAttachmentPoint.position + Vector3.up * rayDistance);
+        if (Physics.Raycast(crateAttachmentPoint.position, Vector3.down, out var hitInfo, rayDistance, crateLayerMask))
+        {
+            attachedCrate = hitInfo.transform.GetComponent<Crate>();
+            attachedCrate.Attach();
+
+            hitInfo.transform.parent = crateAttachmentPoint;
+
+            hitInfo.transform.localPosition = Vector3.zero;
+            hitInfo.transform.localRotation = Quaternion.identity;
         }
     }
 }

@@ -857,11 +857,6 @@ MonoBehaviour:
   info:
     enginePowerModifier: 0.9
     turningSlipModifier: 1
---- !u!4 &1795528976 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3309709032615950737, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
-  m_PrefabInstance: {fileID: 8249428710443080460}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2024342976 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3242884211834999384, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
@@ -1120,10 +1115,6 @@ PrefabInstance:
       propertyPath: BackwardRotationAmount
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 2958365421575037831, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
-      propertyPath: frontLeftWheel
-      value: 
-      objectReference: {fileID: 1795528976}
     - target: {fileID: 4212471351521091097, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.48
