@@ -32,6 +32,10 @@ public class Forklift : MonoBehaviour
     public float engineMinPower = -3.0f;
     public float wheelsMaxPower = 300.0f;
 
+    public Transform ForkAttachmentPoint;
+
+    public Transform ForkliftAttachment;
+
     void Awake()
     {
         Engine.Type = ForceType.Translation;

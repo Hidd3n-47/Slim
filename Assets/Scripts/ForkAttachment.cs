@@ -14,36 +14,14 @@ public class ForkAttachment : MonoBehaviour
 
     public float attachmentRaiseSpeed = 2.0f;
 
-    public LayerMask CrateLayerMask;
-
-    public Transform testingPoint;
-
-    public bool attached = false;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Crate AttachCrate
     {
-        
+        get;
+        set;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        /////
-        if (!attached && Physics.Raycast(testingPoint.position, Vector3.up, out var hitInfo, 200, CrateLayerMask))
-        {
-            Debug.Log("testing raycast hit");
-
-            Vector3 location = hitInfo.transform.gameObject.GetComponent<Crate>().RearTransform.localPosition;
-
-            hitInfo.transform.parent = testingPoint;
-            hitInfo.transform.localPosition = location;
-            hitInfo.transform.localRotation = Quaternion.identity;
-            attached = true;
-        }
-        /// 
-
         var rightShoulder = Gamepad.current.rightShoulder;
         var leftShoulder  = Gamepad.current.leftShoulder;
 
@@ -68,6 +46,11 @@ public class ForkAttachment : MonoBehaviour
             var pos = Forks.position;
             pos.y = Math.Clamp(pos.y, Bottom.position.y, Middle.position.y + 0.1f);
             Forks.position = pos;
+
+            if (Mathf.Approximately(Forks.position.y, Bottom.position.y))
+            {
+                AttachCrate?.Detach();
+            }
         }
         else
         {
@@ -86,29 +69,5 @@ public class ForkAttachment : MonoBehaviour
             Poles.position = pos;
 
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("testing");
-        if (other.gameObject.layer != CrateLayerMask)
-        {
-            return;
-        }
-
-        other.gameObject.transform.parent = transform;
-        other.gameObject.transform.localPosition = Vector3.zero;
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("testing 123");
-        if (other.gameObject.layer != CrateLayerMask)
-        {
-            return;
-        }
-
-        other.gameObject.transform.parent = transform;
-        other.gameObject.transform.localPosition = Vector3.zero;
     }
 }

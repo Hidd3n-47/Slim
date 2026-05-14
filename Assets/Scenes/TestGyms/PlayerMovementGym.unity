@@ -733,7 +733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.68
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2543241274640306652, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -770,6 +770,22 @@ PrefabInstance:
     - target: {fileID: 2882507009767000934, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
       propertyPath: m_Name
       value: SM_WoodenCrate_I_Pallet
+      objectReference: {fileID: 0}
+    - target: {fileID: 3077497647483745959, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684948455185153598, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8685024923891030919, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
+      propertyPath: rayDistance
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8685024923891030919, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
+      propertyPath: forkliftLayerMask.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -835,6 +851,10 @@ PrefabInstance:
     - target: {fileID: 4212471351521091097, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222895722191461175, guid: 287633761b99ddc428e303b2fb8c93f4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
