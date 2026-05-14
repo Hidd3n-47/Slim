@@ -36814,14 +36814,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Objective Crate
       objectReference: {fileID: 0}
-    - target: {fileID: 4684948455185153598, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8685024923891030919, guid: 44ee049a06654ba4399b4882f5e6ab1b, type: 3}
-      propertyPath: forkliftLayerMask.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

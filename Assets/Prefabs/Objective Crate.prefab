@@ -217,50 +217,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8294406630725643141}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7698652705229585781}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
 --- !u!4 &2653460291779322654 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
-  m_PrefabInstance: {fileID: 2546861931711497461}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2687445645644675167 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 437971755268783274, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
-  m_PrefabInstance: {fileID: 2546861931711497461}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3429821791137970596 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
-  m_PrefabInstance: {fileID: 2546861931711497461}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &7698652705229585781
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3429821791137970596}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.9945369, y: 1.1006129, z: 1}
-  m_Center: {x: -0.13340327, y: 0.7879435, z: 0}
---- !u!4 &7615535240041207042 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5401950781450555895, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
   m_PrefabInstance: {fileID: 2546861931711497461}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2648627903456179767
@@ -435,9 +396,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7649e644d5bc5ca4797b893142357517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontTransform: {fileID: 7615535240041207042}
-  rearTransform: {fileID: 2687445645644675167}
-  rayDistance: 0.03
-  forkliftLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
