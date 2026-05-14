@@ -39,17 +39,17 @@ public class ForkAttachment : MonoBehaviour
             attachMoveSpeed += 1.0f;
         }
 
-        if (forks.position.y <= middle.position.y)
+        if (forks.localPosition.y <= middle.localPosition.y)
         {
             // Move forks only.
             float delta = attachMoveSpeed * attachmentRaiseSpeed * Time.deltaTime;
 
-            forks.position += new Vector3(0.0f, delta, 0.0f);
-            var pos = forks.position;
-            pos.y = Math.Clamp(pos.y, bottom.position.y, middle.position.y + 0.1f);
-            forks.position = pos;
+            var pos = forks.localPosition;
+            pos += new Vector3(0.0f, delta, 0.0f);
+            pos.y = Math.Clamp(pos.y, bottom.localPosition.y, middle.localPosition.y + 0.1f);
+            forks.localPosition = pos;
 
-            if (Mathf.Approximately(forks.position.y, bottom.position.y))
+            if (Mathf.Approximately(forks.localPosition.y, bottom.localPosition.y))
             {
                 if (attachedCrate?.Detach() == true)
                 {
@@ -62,16 +62,16 @@ public class ForkAttachment : MonoBehaviour
             // Move Poles and Forks.
             float delta = attachMoveSpeed * attachmentRaiseSpeed * Time.deltaTime;
             var deltaVec = new Vector3(0.0f, delta, 0.0f);
-            forks.position += deltaVec;
+            forks.localPosition += deltaVec;
 
-            var posForks = forks.position;
-            posForks.y = Math.Clamp(posForks.y, middle.position.y, top.position.y);
-            forks.position = posForks;
-            poles.position += deltaVec;
+            var posForks = forks.localPosition;
+            posForks.y = Math.Clamp(posForks.y, middle.localPosition.y, top.localPosition.y);
+            forks.localPosition = posForks;
+            poles.localPosition += deltaVec;
 
-            var pos = poles.position;
-            pos.y = Math.Clamp(pos.y, middle.position.y, top.position.y);
-            poles.position = pos;
+            var pos = poles.localPosition;
+            pos.y = Math.Clamp(pos.y, middle.localPosition.y, top.localPosition.y);
+            poles.localPosition = pos;
 
         }
     }
