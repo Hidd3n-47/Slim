@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class CameraOrbit : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class CameraOrbit : MonoBehaviour
     [SerializeField] private float snappingAmount = 90.0f;
 
     [SerializeField] private Transform player;
+
+    private float addedAmount;
+    private float targetAmount;
+    private float direction;
 
     public void Activate()
     {
@@ -18,21 +23,30 @@ public class CameraOrbit : MonoBehaviour
     {
         if(Gamepad.current.dpad.left.wasPressedThisFrame)
         {
-            StopAllCoroutines();
+            StopCurrentAnimation();
             StartCoroutine(RotateCamera(snappingAmount));
         }
         if (Gamepad.current.dpad.right.wasPressedThisFrame)
         {
-            StopAllCoroutines();
+            StopCurrentAnimation();
             StartCoroutine(RotateCamera(-snappingAmount));
         }
     }
 
-    IEnumerator RotateCamera(float amount)
+    private void StopCurrentAnimation()
     {
-        float addedAmount  = 0f;
-        float direction    = Mathf.Sign(amount);
-        float targetAmount = Mathf.Abs(amount);
+        transform.RotateAround(player.transform.position, Vector3.up, (targetAmount - addedAmount) * direction);
+
+        targetAmount = 0.0f;
+        addedAmount  = 0.0f;
+
+        StopAllCoroutines();
+    }
+
+    private IEnumerator RotateCamera(float amount)
+    {
+        direction    = Mathf.Sign(amount);
+        targetAmount = Mathf.Abs(amount);
 
         while (addedAmount < targetAmount)
         {
@@ -49,5 +63,8 @@ public class CameraOrbit : MonoBehaviour
 
             yield return null;
         }
+
+        addedAmount  = 0.0f;
+        targetAmount = 0f;
     }
 }
