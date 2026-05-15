@@ -48,14 +48,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6492746379557669055, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3740979573451390689, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -163629791937611583, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -163629791937611583, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
       propertyPath: m_Name
       value: SM_WoodenCrate_I_Pallet
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2243781247861401310, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: -876546973899608171, guid: 976d73af15ae36c40b90e984f994c8c1, type: 3}
+    - target: {fileID: 3004715042772894245, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316898011613483001, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950938865222145647, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

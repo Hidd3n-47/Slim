@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5689067308608938668}
   - component: {fileID: 6134224910053761489}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FootOneCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 914241682820490329}
   - component: {fileID: 8736108793896549617}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FootTwoCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,9 +207,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3740979573451390689, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
       propertyPath: m_Name
       value: SM_WoodenCrate_I_Pallet2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004715042772894245, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950938865222145647, guid: b16fc5c686e12fa41897422884c7721d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -282,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3004715042772894245, guid: 6aba1d87fb677e14a90120d763faf7a5, type: 3}
       propertyPath: m_Layer
@@ -343,10 +359,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2882507009767000934}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 0.01
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
