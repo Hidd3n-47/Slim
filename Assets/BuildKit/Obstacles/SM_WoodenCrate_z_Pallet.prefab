@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_WoodenCrate_z_Pallet
       objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: 0b3672dc92fa6dc4b806c371029de3dd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
