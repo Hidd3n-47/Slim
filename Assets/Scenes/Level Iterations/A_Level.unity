@@ -13494,11 +13494,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7992803286825718455, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: info.enginePowerModifier
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7992803286825718455, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: info.turningSlipModifier
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8104670571842405719, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: m_Name
@@ -50170,11 +50170,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7992803286825718455, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: info.enginePowerModifier
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7992803286825718455, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: info.turningSlipModifier
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8104670571842405719, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: m_Name
@@ -50507,11 +50507,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7992803286825718455, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: info.enginePowerModifier
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7992803286825718455, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: info.turningSlipModifier
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8104670571842405719, guid: affc3a059ecd2c8459e7ff22c52f5e94, type: 3}
       propertyPath: m_Name
