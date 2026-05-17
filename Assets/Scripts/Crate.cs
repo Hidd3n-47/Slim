@@ -34,5 +34,7 @@ public class Crate : MonoBehaviour
         parentAttachment.RemoveCrate();
 
         zone.OnDelivered?.Invoke();
+
+        Destroy(this);
     }
 }
