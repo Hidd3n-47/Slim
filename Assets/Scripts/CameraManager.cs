@@ -8,7 +8,8 @@ public enum CameraType
     None,
     CameraFollow,
     CameraOrbit,
-    CameraFixedFollow
+    CameraFixedFollow,
+    CameraFreeOrbit
 }
 
 public class CameraManager : MonoBehaviour
@@ -17,11 +18,13 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private Transform  cameraTransform;
 
     [SerializeField] private Transform orbitCameraPosition;
+    [SerializeField] private Transform freeOrbitCameraPosition;
     [SerializeField] private Transform fixedFollowCameraPosition;
     [SerializeField] private Transform followCameraPosition;
 
     private CameraFollow      cameraFollow;
     private CameraOrbit       cameraOrbit;
+    private CameraFreeOrbit   cameraFreeOrbit;
     private CameraFixedFollow cameraFixedFollow;
 
     private CameraType previousType = CameraType.None;
@@ -31,9 +34,11 @@ public class CameraManager : MonoBehaviour
         orbitCameraPosition.gameObject.SetActive(false);
         fixedFollowCameraPosition.gameObject.SetActive(false);
         followCameraPosition.gameObject.SetActive(false);
+        freeOrbitCameraPosition.gameObject.SetActive(false);
 
         cameraFollow      = cameraTransform.GetComponent<CameraFollow>();
         cameraOrbit       = cameraTransform.GetComponent<CameraOrbit>();
+        cameraFreeOrbit   = cameraTransform.GetComponent<CameraFreeOrbit>();
         cameraFixedFollow = cameraTransform.GetComponent<CameraFixedFollow>();
 
         DisableCameras();
@@ -67,6 +72,12 @@ public class CameraManager : MonoBehaviour
                 cameraTransform.localRotation = fixedFollowCameraPosition.localRotation;
                 cameraFixedFollow.enabled = true;
                 break;
+            case CameraType.CameraFreeOrbit:
+                cameraTransform.localPosition = freeOrbitCameraPosition.localPosition;
+                cameraTransform.localRotation = freeOrbitCameraPosition.localRotation;
+                cameraFreeOrbit.enabled = true;
+                cameraFreeOrbit.Activate();
+                break;
         }
 
         previousType = cameraType;
@@ -74,8 +85,9 @@ public class CameraManager : MonoBehaviour
 
     private void DisableCameras()
     {
-        cameraFollow.enabled = false;
-        cameraOrbit.enabled = false;
+        cameraFollow.enabled      = false;
+        cameraOrbit.enabled       = false;
         cameraFixedFollow.enabled = false;
+        cameraFreeOrbit.enabled   = false;
     }
 }
