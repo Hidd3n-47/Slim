@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     private bool gameStarted;
     private float currentTimer;
 
+    public void AddTime(float time)
+    {
+        currentTimer += time;
+    }
+
     private void Start()
     {
         currentTimer = startingTimeSeconds;
