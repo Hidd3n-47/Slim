@@ -44,6 +44,9 @@ public class Context : MonoBehaviour
     public float WheelTurningRate = 25.0f;
     public float WheelTurningRateFront = 15.0f;
 
+    public float minFov = 60;
+    public float maxFov = 120.0f;
+
     private void Awake()
     {
         //surfaceLayerMask = LayerMask.NameToLayer("GroundSurface");
@@ -138,6 +141,8 @@ public class Context : MonoBehaviour
         Forklift.engineMaxPower = EnginePowerMax;
         Forklift.engineMinPower = EnginePowerMin;
         Forklift.wheelsMaxPower = WheelsPowerMax;
+
+        Camera.fieldOfView = Mathf.Lerp(minFov, maxFov, Math.Abs(Forklift.Engine.Power) / Forklift.engineMaxPower);
     }
 
     private void FixedUpdate()
