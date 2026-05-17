@@ -21,6 +21,11 @@ public class ForkAttachment : MonoBehaviour
 
     private Crate attachedCrate;
 
+    public void RemoveCrate()
+    {
+        attachedCrate = null;
+    }
+
     private void Update()
     {
         TryAttach();
@@ -72,7 +77,6 @@ public class ForkAttachment : MonoBehaviour
             var pos = poles.localPosition;
             pos.y = Math.Clamp(pos.y, middle.localPosition.y, top.localPosition.y);
             poles.localPosition = pos;
-
         }
     }
 
@@ -85,7 +89,7 @@ public class ForkAttachment : MonoBehaviour
         if (Physics.Raycast(crateAttachmentPoint.position, Vector3.down, out var hitInfo, rayDistance, crateLayerMask))
         {
             attachedCrate = hitInfo.transform.GetComponent<Crate>();
-            attachedCrate.Attach();
+            attachedCrate.Attach(this);
 
             hitInfo.transform.parent = crateAttachmentPoint;
 

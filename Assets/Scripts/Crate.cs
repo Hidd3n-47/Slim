@@ -1,10 +1,13 @@
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
-    public void Attach()
+    private ForkAttachment parentAttachment;
+
+    public void Attach(ForkAttachment attachment)
     {
+        parentAttachment = attachment;
+
         GetComponent<Rigidbody>().isKinematic = true;
     }
 
@@ -14,5 +17,22 @@ public class Crate : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = false;
 
         return true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var zone = other.GetComponentInParent<DeliveryZone>();
+        if (!zone || zone.ObjectToDeliver != transform)
+        {
+            return;
+        }
+
+        transform.parent = zone.DeliveryPivotPoint;
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+
+        parentAttachment.RemoveCrate();
+
+        zone.OnDelivered?.Invoke();
     }
 }
