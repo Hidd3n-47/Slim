@@ -69,7 +69,9 @@ public class NewPlayer : MonoBehaviour
 
     void GetPlayerInput()
     {
-        accelerationInput = Gamepad.current.rightTrigger.ReadValue();
+        accelerationInput = 0.0f;
+        accelerationInput += Gamepad.current.rightTrigger.ReadValue();
+        accelerationInput -= Gamepad.current.leftTrigger.ReadValue();
         steerInput = (float)Math.Round(Gamepad.current.leftStick.value.x, 2);
     }
 

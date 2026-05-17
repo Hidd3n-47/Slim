@@ -248,11 +248,11 @@ MonoBehaviour:
   maxSpringTravel: 0.5
   suspensionRestDistance: 1
   wheelRadius: 0.33
-  acceleration: 25
-  maxSpeed: 100
-  deceleration: 10
+  acceleration: 50
+  maxSpeed: 500
+  deceleration: 20
   accelerationPoint: {fileID: 1634779422}
-  dragCoefficient: 0
+  dragCoefficient: 3.5
   turningCurve:
     serializedVersion: 2
     m_Curve:
@@ -295,7 +295,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  steeringStrength: 30
+  steeringStrength: 150
 --- !u!54 &85936000
 Rigidbody:
   m_ObjectHideFlags: 0
