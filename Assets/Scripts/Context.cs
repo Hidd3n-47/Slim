@@ -1,10 +1,7 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static PlayerMovement;
-using static UnityEditor.FilePathAttribute;
-using static UnityEngine.UI.Image;
+using Random = UnityEngine.Random;
 
 public class Context : MonoBehaviour
 {
@@ -58,7 +55,12 @@ public class Context : MonoBehaviour
 
         Forklift.OnCollideFront += (Collision collision) =>
         {
-            if (collision.gameObject.tag == "Cone") return;
+            if (collision.gameObject.CompareTag("Cone"))
+            {
+                float t = Mathf.Lerp(10.0f, 20.0f, Math.Abs(Forklift.Engine.Power) / Forklift.engineMaxPower);
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(Random.Range(-20.0f, -45.0f), Forklift.transform.right) * Forklift.transform.forward * t, ForceMode.Impulse);
+                return;
+            }
 
             Forklift.Engine.Power *= -bounceBackPercentage;
             Forklift.ExternalForces.Add(new Force()
@@ -73,7 +75,12 @@ public class Context : MonoBehaviour
         };
         Forklift.OnCollideBack += (Collision collision) =>
         {
-            if (collision.gameObject.tag == "Cone") return;
+            if (collision.gameObject.CompareTag("Cone"))
+            {
+                float t = Mathf.Lerp(10.0f, 20.0f, Math.Abs(Forklift.Engine.Power) / Forklift.engineMaxPower);
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(Random.Range(-20.0f, -45.0f), Forklift.transform.right) * -Forklift.transform.forward * t, ForceMode.Impulse);
+                return;
+            }
 
             Forklift.Engine.Power *= -bounceBackPercentage;
             Forklift.ExternalForces.Add(new Force()
@@ -88,14 +95,24 @@ public class Context : MonoBehaviour
         };
         Forklift.OnCollideLeft += (Collision collision) =>
         {
-            if (collision.gameObject.tag == "Cone") return;
+            if (collision.gameObject.CompareTag("Cone"))
+            {
+                float t = Mathf.Lerp(10.0f, 20.0f, Math.Abs(Forklift.Engine.Power) / Forklift.engineMaxPower);
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(Random.Range(-20.0f, -45.0f), Forklift.transform.forward) * Forklift.transform.right * t, ForceMode.Impulse);
+                return;
+            }
 
             Forklift.Wheels.Power *= -bounceBackPercentage;
             // add feel or particles for the bump.
         };
         Forklift.OnCollideRight += (Collision collision) =>
         {
-            if (collision.gameObject.tag == "Cone") return;
+            if (collision.gameObject.CompareTag("Cone"))
+            {
+                float t = Mathf.Lerp(10.0f, 20.0f, Math.Abs(Forklift.Engine.Power) / Forklift.engineMaxPower);
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(Quaternion.AngleAxis(Random.Range(-20.0f, -45.0f), Forklift.transform.right) * Forklift.transform.forward * t, ForceMode.Impulse);
+                return;
+            }
 
             Forklift.Wheels.Power *= -bounceBackPercentage;
             // add feel or particles for the bump.

@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         if (!gameStarted) return;
 
         currentTimer -= Time.deltaTime;
-        timerText.text = $"{(int)currentTimer:0}.{Mathf.Floor(10.0f * (currentTimer - (int)currentTimer))}";
+        timerText.text = $"{(int)(currentTimer / 60.0f):0}:{(int)currentTimer % 60:00}";
     }
 
     private IEnumerator StartGameEvent()
