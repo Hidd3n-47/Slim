@@ -4,6 +4,8 @@ public class Crate : MonoBehaviour
 {
     private ForkAttachment parentAttachment;
 
+    private bool delivered = false;
+
     public void Attach(ForkAttachment attachment)
     {
         parentAttachment = attachment;
@@ -22,7 +24,7 @@ public class Crate : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var zone = other.GetComponentInParent<DeliveryZone>();
-        if (!zone || zone.ObjectToDeliver != transform)
+        if (!zone || zone.ObjectToDeliver != transform || delivered)
         {
             return;
         }
@@ -35,6 +37,7 @@ public class Crate : MonoBehaviour
 
         zone.OnDelivered?.Invoke();
 
-        Destroy(this);
+        Destroy(zone);
+        delivered = true;
     }
 }
