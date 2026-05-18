@@ -8,6 +8,8 @@ public class CameraFreeOrbit : MonoBehaviour
 
     [SerializeField] private Transform player;
 
+    [SerializeField] private float lerpSpeed = 0.1f;
+
     private float previousMove = 0.0f;
 
     public void Activate()
@@ -19,10 +21,12 @@ public class CameraFreeOrbit : MonoBehaviour
     {
         float move = Gamepad.current.rightStick.value.x;
 
-        float now  = Mathf.Lerp(0.0f, maxRotationHorizontal, move);
-        float prev = Mathf.Lerp(0.0f, maxRotationHorizontal, previousMove);
+        move = Mathf.Lerp(previousMove, move, lerpSpeed);
 
-        transform.RotateAround(player.transform.position, Vector3.up, now - prev);
+        float now  = Mathf.Lerp(0.0f, maxRotationHorizontal, Mathf.Abs(move)) * Mathf.Sign(move);
+        float prev = Mathf.Lerp(0.0f, maxRotationHorizontal, Mathf.Abs(previousMove)) * Mathf.Sign(previousMove);
+
+        transform.RotateAround(player.transform.position, Vector3.up, prev - now);
 
         previousMove = move;
     }
