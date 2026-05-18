@@ -11,12 +11,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float startingTimeSeconds = 30.0f;
     [SerializeField] private TextMeshProUGUI timerText;
 
+    [SerializeField] private Transform endUi;
+
     private bool gameStarted;
     private float currentTimer;
 
     public void AddTime(float time)
     {
         currentTimer += time;
+    }
+
+    public void EndPlaytest()
+    {
+        gameStarted = false;
+        timerText.transform.parent = endUi;
+        timerText.transform.localPosition = Vector3.zero;
+        timerText.transform.localScale = Vector3.one * 1.5f;
+        timerText.rectTransform.localPosition = Vector3.zero;
     }
 
     private void Start()

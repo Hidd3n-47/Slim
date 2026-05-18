@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -47,8 +48,13 @@ public class Context : MonoBehaviour
     public float minFov = 60;
     public float maxFov = 120.0f;
 
+    public float bootTimer = 1.5f;
+    public float timer;
+
+
     private void Awake()
     {
+        timer = bootTimer;
         //surfaceLayerMask = LayerMask.NameToLayer("GroundSurface");
 
         // camera parenting to current transform.
@@ -141,6 +147,23 @@ public class Context : MonoBehaviour
         Forklift.engineMaxPower = EnginePowerMax;
         Forklift.engineMinPower = EnginePowerMin;
         Forklift.wheelsMaxPower = WheelsPowerMax;
+
+        UnityEngine.Debug.Log(timer);
+        if(Gamepad.current.circleButton.isPressed && timer > 0.0f)
+        {
+            timer -= Time.deltaTime;
+            maxFov = 90.0f;
+            Forklift.engineMaxPower = 20.0f;
+            EnginePowerMax = 20.0f;
+        }
+        else
+        {
+            Forklift.engineMaxPower = 10.0f;
+            EnginePowerMax = 10.0f;
+            maxFov = 70.0f;
+            timer += Time.deltaTime;
+            timer = Mathf.Clamp(timer, 0.0f, bootTimer);
+        }
 
         Camera.fieldOfView = Mathf.Lerp(minFov, maxFov, Math.Abs(Forklift.Engine.Power) / Forklift.engineMaxPower);
     }
