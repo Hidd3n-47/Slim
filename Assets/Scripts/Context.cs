@@ -50,7 +50,7 @@ public class Context : MonoBehaviour
 
     public float bootTimer = 1.5f;
     public float timer;
-
+    bool canBoost = true;
 
     private void Awake()
     {
@@ -149,12 +149,17 @@ public class Context : MonoBehaviour
         Forklift.wheelsMaxPower = WheelsPowerMax;
 
         UnityEngine.Debug.Log(timer);
-        if(Gamepad.current.circleButton.isPressed && timer > 0.0f)
+        if(Gamepad.current.circleButton.isPressed && timer > 0.0f && canBoost)
         {
             timer -= Time.deltaTime;
             maxFov = 90.0f;
             Forklift.engineMaxPower = 20.0f;
             EnginePowerMax = 20.0f;
+
+            if(timer <= 0.0f)
+            {
+                canBoost = false;
+            }
         }
         else
         {
@@ -162,6 +167,10 @@ public class Context : MonoBehaviour
             EnginePowerMax = 10.0f;
             maxFov = 70.0f;
             timer += Time.deltaTime;
+            if(timer >= bootTimer)
+            {
+                canBoost = true;
+            }
             timer = Mathf.Clamp(timer, 0.0f, bootTimer);
         }
 
