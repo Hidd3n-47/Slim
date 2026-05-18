@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentTimer = startingTimeSeconds;
-
+        timerText.gameObject.SetActive(false);
         StartCoroutine(StartGameEvent());
     }
 
@@ -46,5 +46,6 @@ public class GameManager : MonoBehaviour
 
         OnGameStartEvent?.Invoke();
         gameStarted = true;
+        timerText.gameObject.SetActive(true);
     }
 }
